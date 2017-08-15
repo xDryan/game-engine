@@ -3,10 +3,43 @@
 
 <head>
     <meta charset='utf-8'>
+    <link rel='stylesheet' href='css/style.css'>
     <title>Moteur de jeu</title>
 </head>
 
 <body>
+    <menu>
+        <button id='editeurMap'>Editeur de map</button>
+        <button id='proprietes'>Propriétés</button>
+    </menu>
+    <div id='moteur'>
+        <div id='fenetreEditeurMap'>
+            <input type='text' id='nomMap' value='map'>
+            <button id='boutonSauvegarde'>Sauvegarder</button>
+            <button id='boutonOuvrir'>Ouvrir</button>
+            <div id='tileSet'>
+            </div>
+        </div>
+
+        <div id='fenetreProprietes'>
+            <label for='tailleTextures'>Tailles des textures (px) :</label>
+            <input type='text' name='tailleTextures' id='tailleTextures'> <br /><br />
+            <label for='nbLignes'>Nombre de lignes :</label>
+            <input type='text' name='nbLignes' id='nbLignes'> <br /><br />
+            <label for='nbLignes'>Nombre de colonnes :</label>
+            <input type='text' name='nbColonnes' id='nbColonnes'> <br /><br />
+
+            <button id='sauvegarderProprietes'>Sauvegarder</button>
+            <button id='fermerProprietes'>Fermer</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
     <div id='map'>
 
     </div>
@@ -18,6 +51,8 @@
     <script src='js/proprietes.js'></script>
     <script src='js/textures.js'></script>
     <script src='js/editeurMap.js'></script>
+    <script src="js/moteur.js"></script>
+
 </body>
 
 </html>

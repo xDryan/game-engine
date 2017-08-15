@@ -11,3 +11,6 @@ Actions possibles :
     -Sauvegarder une map
     -Rouvrir une map sauvegardée
     -ATTENTION : Pour pouvoir rouvrir une map à tous les coups il faut désactiver le cache de votre navigateur
+    -Modifier les propriétés
+
+Si vous trouvez un bug contactez-moi : bryan.truwant@gmail.com

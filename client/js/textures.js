@@ -1,4 +1,6 @@
 var listeTextures = []; // Tableau qui contiendra toutes les textures des maps
+// Le div qui contiendra l'ensemble des tiles
+var tileSetElt = document.getElementById('tileSet');
 
 function Texture(name, path) { // Constructeur de texture
     this.name = name;
@@ -18,16 +20,13 @@ var water = new Texture('water', 'textures/water.png');
     MODULE DE TEXTURES POUR L'EDITEUR DE MAPS
 */
 
-// On récupére l'emplacement textures sur le document
-var textures = document.getElementById('textures');
-
 // On ajoute sur la page la liste des textures à l'éditeur de maps
 for (var i = 0; i < listeTextures.length; i++) {
     var texture = document.createElement('img');
     texture.src = listeTextures[i].path;
     texture.style.position = 'absolute';
-    texture.style.top = tailleTextures * i + 'px';
-    texture.style.right = 0;
+    texture.style.top = (50 + tailleTextures * i) + 'px';
+    texture.style.right = 5 + 'px';
     texture.addEventListener('contextmenu', function (e) { // Annule le clic droit
         e.preventDefault();
     });
@@ -35,5 +34,5 @@ for (var i = 0; i < listeTextures.length; i++) {
         texturePath = e.target.src;
     });
 
-    textures.appendChild(texture);
+    tileSetElt.appendChild(texture);
 }

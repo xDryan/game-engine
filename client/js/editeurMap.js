@@ -1,16 +1,19 @@
-var listeCases = new Array(nbLignes * nbColonnes - 1);
-var id = 0;
+var id = 0; // Utile pour l'affichage d'une map sauvegardée
+var listeTiles = []; // Contient la liste des tiles affichés et toutes leurs propriétes
 
-function Case(ligne, colonne, id, path) { // Constructeur des cases de la map
+// Constructeur des tiles de la map
+function Tile(ligne, colonne, id, path) {
     this.ligne = ligne;
     this.colonne = colonne;
     this.path = path;
     this.texture = document.createElement('img');
+    this.texture.style.width = tailleTextures + 'px';
+    this.texture.style.height = tailleTextures + 'px';
     this.texture.id = id;
     this.texture.src = path; // La map sera pleine de vide au début
     this.texture.style.position = 'absolute'
-    this.texture.style.top = tailleTextures * this.ligne + 'px';
-    this.texture.style.left = tailleTextures * this.colonne + 'px';
+    this.texture.style.top = (100 + tailleTextures * this.ligne) + 'px';
+    this.texture.style.left = (10 + tailleTextures * this.colonne) + 'px';
 
     this.texture.addEventListener('contextmenu', function (e) { // Annule le clic droit
         e.preventDefault();
@@ -21,70 +24,48 @@ function Case(ligne, colonne, id, path) { // Constructeur des cases de la map
             texturePath = e.target.src;
         } else {
             e.target.src = texturePath;
-            listeCases[e.target.id].path = texturePath;
+            listeTiles[e.target.id].path = texturePath;
         }
 
     });
 
-    map.appendChild(this.texture);
+    fenetreEditeurMapElt.appendChild(this.texture);
 }
 
-for (var ligne = 0; ligne < nbLignes; ligne++) { // On crée la map
-    for (var colonne = 0; colonne < nbColonnes; colonne++) {
-        listeCases[id] = new Case(ligne, colonne, id, 'textures/empty.png');
-        id++
+// Fonction appelée par le moteur lorsque l'utilisateur souhaite ouvrir l'éditeur de maps, il affiche ce dernier
+function lancerEditeurMap(e) {
+    // Affichage d'une map vide
+    for (var ligne = 0; ligne < nbLignes; ligne++) { // On crée la map
+        for (var colonne = 0; colonne < nbColonnes; colonne++) {
+            listeTiles.push(new Tile(ligne, colonne, id, 'textures/empty.png'));
+            id++
+        }
     }
+
+    // Affichage de l'interface approprié
+    moteur.appendChild(fenetreEditeurMapElt);
 }
 
-// Création du bouton de sauvegarde
-var boutonSauvegarde = document.createElement('button');
-
-boutonSauvegarde.style.position = 'absolute';
-boutonSauvegarde.style.top = '100px';
-boutonSauvegarde.style.left = '900px';
-boutonSauvegarde.textContent = 'Sauvegarder';
-
-boutonSauvegarde.addEventListener('click', function (e) {
-    var dataNom = nomMap.value;
-    var data = JSON.stringify(listeCases);
+// Fonction appelée lorsque l'utilisateur souhaite sauvegardée la map actuellement dessinée
+function sauvegarderMap(e) {
+    var dataNom = nomMapElt.value;
+    var data = JSON.stringify(listeTiles);
     ajaxPost(adresseServeur + '/save_map.php',
         data,
         function () {
             ajaxPost(adresseServeur + '/save_map2.php', dataNom, function () {
-                console.log('Map envoyé !');
+                console.log('Sauvegarde de la map : ' + nomMapElt.value);
             }, true);
         }, true);
-});
+}
 
-document.getElementById('map').appendChild(boutonSauvegarde);
-
-// Input qui contient le nom de la map à ouvrir
-var nomMap = document.createElement('input');
-nomMap.type = 'text';
-nomMap.name = 'nomMap';
-nomMap.value = 'map';
-nomMap.style.position = 'absolute';
-nomMap.style.top = '50px';
-nomMap.style.left = '900px';
-
-document.getElementById('map').appendChild(nomMap);
-
-// Création du bouton d'ouverture de la map
-var boutonOuvrir = document.createElement('button');
-
-boutonOuvrir.style.position = 'absolute';
-boutonOuvrir.style.top = '100px';
-boutonOuvrir.style.left = '1000px';
-boutonOuvrir.textContent = 'Ouvrir map';
-
-boutonOuvrir.addEventListener('click', function (e) {
-    ajaxGet(adresseServeur + '/maps/map.json', function (mapJSON) {
-        console.log(nomMap.value);
+// Fonction appelée lorsque l'utilisateur souhaite ouvrir une map déjà existante
+function ouvrirMap(e) {
+    ajaxGet(adresseServeur + '/maps/' + nomMapElt.value + '.json', function (mapJSON) {
+        console.log('Ouverture de la map : ' + nomMapElt.value);
         var mapJS = JSON.parse(mapJSON);
         for (var idCase = 0; idCase < mapJS.length; idCase++) {
-            listeCases[idCase] = new Case(mapJS[idCase].ligne, mapJS[idCase].colonne, idCase, mapJS[idCase].path);
+            listeTiles[idCase] = new Tile(mapJS[idCase].ligne, mapJS[idCase].colonne, idCase, mapJS[idCase].path);
         }
     });
-});
-
-document.getElementById('map').appendChild(boutonOuvrir);
+}
