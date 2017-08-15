@@ -47,10 +47,10 @@ boutonSauvegarde.textContent = 'Sauvegarder';
 boutonSauvegarde.addEventListener('click', function (e) {
     var dataNom = nomMap.value;
     var data = JSON.stringify(listeCases);
-    ajaxPost('http://localhost/moteur/save_map.php',
+    ajaxPost(adresseServeur + '/save_map.php',
         data,
         function () {
-            ajaxPost('http://localhost/moteur/save_map2.php', dataNom, function () {
+            ajaxPost(adresseServeur + '/save_map2.php', dataNom, function () {
                 console.log('Map envoyé !');
             }, true);
         }, true);
@@ -78,7 +78,7 @@ boutonOuvrir.style.left = '1000px';
 boutonOuvrir.textContent = 'Ouvrir map';
 
 boutonOuvrir.addEventListener('click', function (e) {
-    ajaxGet('http://localhost/moteur/maps/map.json', function (mapJSON) {
+    ajaxGet(adresseServeur + '/maps/map.json', function (mapJSON) {
         console.log(nomMap.value);
         var mapJS = JSON.parse(mapJSON);
         for (var idCase = 0; idCase < mapJS.length; idCase++) {
