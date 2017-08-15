@@ -1,0 +1,43 @@
+menu {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    width: 95%;
+    border: 3px solid black;
+    padding: 0px;
+    height: 23px;
+}
+
+button {
+    margin: 0px;
+}
+
+#boutonSauvegarde {
+    position: absolute;
+    left: 135px;
+    top: 50px;
+    width: 100px;
+}
+
+#nomMap {
+    position: absolute;
+    left: 5px;
+    top: 50px;
+    width: 120px;
+}
+
+#boutonOuvrir {
+    position: absolute;
+    left: 240px;
+    top: 50px;
+}
+
+#fenetreProprietes {
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    width: 500px;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: white;
+}
