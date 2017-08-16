@@ -13,14 +13,33 @@
         <button id='proprietes'>Propriétés</button>
     </menu>
     <div id='moteur'>
+        <!--
+        FENETRE QUI PERMET DE CREER ET MODIFIER DES MAPS
+        -->
         <div id='fenetreEditeurMap'>
             <input type='text' id='nomMap' value='map'>
             <button id='boutonSauvegarde'>Sauvegarder</button>
             <button id='boutonOuvrir'>Ouvrir</button>
             <div id='tileSet'>
+                <button id='boutonAjouterTexture'>Ajouter une texture</button>
+                <button id='sauvegarderTextures'>Sauvegarder les textures</button>
             </div>
         </div>
+        <!--
+        FENETRE QUI PERMET L'AJOUT DE TEXTURES
+        -->
+        <div id='fenetreAjouterTexture'>
+            <label for='nomTexture'>Nom :</label>
+            <input type='text' name='nomTexture' id='nomTexture'> <br /><br />
+            <label for='cheminTexture'>Chemin relatif :</label>
+            <input type='text' name='cheminTexture' id='cheminTexture'> <br /><br />
 
+            <button id='validerTexture'>Ajouter</button>
+            <button id='fermerTexture'>Fermer</button>
+        </div>
+        <!--
+        FENETRE DES PROPRIETES
+        -->
         <div id='fenetreProprietes'>
             <label for='tailleTextures'>Tailles des textures (px) :</label>
             <input type='text' name='tailleTextures' id='tailleTextures'> <br /><br />
@@ -34,7 +53,9 @@
         </div>
 
     </div>
-
+    <!--
+        SCRIPTS DU MOTEUR DE JEU
+        -->
     <script src='js/ajax.js'></script>
     <script src='js/proprietes.js'></script>
     <script src='js/textures.js'></script>

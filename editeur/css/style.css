@@ -32,7 +32,8 @@ button {
     top: 50px;
 }
 
-#fenetreProprietes {
+#fenetreProprietes,
+#fenetreAjouterTexture {
     position: absolute;
     top: 150px;
     left: 300px;
@@ -40,4 +41,16 @@ button {
     border: 1px solid black;
     padding: 5px;
     background-color: white;
+}
+
+#boutonAjouterTexture {
+    position: absolute;
+    top: 50px;
+    right: 135px;
+}
+
+#sauvegarderTextures {
+    position: absolute;
+    top: 75px;
+    right: 135px;
 }
